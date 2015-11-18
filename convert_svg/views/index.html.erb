@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>SVG Converter</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/master.css" media="screen" charset="utf-8">
+  </head>
+  <body>
+    <canvas></canvas>
+    <div class="container">
+      <form id="svg_site" action="/getsvgs" method="post" accept-charset="utf-8">
+        <div class="input-group">
+          <input type="text" name="site" id="site" class="form-control" placeholder="Enter URL" />
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-default">Go</button>
+          </span>
+        </div>
+      </form>
+    </div>
+  </body>
+  <script type="text/javascript">
+    var canvas = document.querySelector("canvas"),
+        context = canvas.getContext("2d");
+
+    var image = new Image;
+    image.src = "logo-symbol.svg";
+    image.getDownload = function() {
+      context.drawImage(image, 0, 0);
+
+      var a = document.createElement("a");
+      a.download = "image" + Date.now() + ".png";
+      a.href = canvas.toDataURL("image/png");
+      a.click();
+    }
+  </script>
+</html>
